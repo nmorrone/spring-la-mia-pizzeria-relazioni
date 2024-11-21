@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: pageHead(info-pizza)}">
+
+<body>
+	<!-- Bootstrap Bundle with Popper -->
+	<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+	<header th:insert="~{fragments :: header(pizze)}"></header>
+	<section class="content pt-5">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="d-flex flex-wrap col-lg-10 justify-content-between text-center">
+					<div>
+						<p><strong>Scopri Subito il Nostro Menu</strong></p>
+					</div>
+					<div>
+						<form class="d-flex" role="search" th:action="@{/pizze}" method="get">
+						        <input class="form-control me-2" name="keyword" th:value="${keyword}" type="search" placeholder="Parola Chiave.." aria-label="Search">
+						        <button class="btn btn-outline-danger" type="submit"><i class="fas fa-search"></i></button>
+						      </form>
+					</div>
+				</div>
+				<div class="col-lg-10 pt-3">
+					<p class="pb-3" style="color: firebrick;">Le Nostre Pizze</p>
+				</div>
+				<div class="col-lg-10 table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Nome</th>
+								<th>Descrizione</th>
+								<th class="prezzo">Prezzo</th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${pizze.empty}">
+								<td colspan="3" class="prezzo"> Nessuna pizza disponibile </td>
+							</tr>
+							<tr th:each="pizza : ${pizze}">
+								<td><a th:href="@{'/pizze/' + ${pizza.id}}">[[${pizza.nomePizza}]]</a></td>
+								<td th:text="${pizza.descrizione}"></td>
+								<td class="prezzo" th:text="${pizza.prezzo}"></td>
+								<td><a th:href="@{'/pizze/modifica-pizza/' + ${pizza.id}}" class="btn btn-outline-danger" role="button"><i class="fas fa-pen"></i></a</td>
+								<td><form th:action="@{'/pizze/rimuovi/' + ${pizza.id}}" method="post">
+								<button class="btn btn-outline-danger" type="submit" onclick="return confirm('Sei sicuro di voler eliminare la Pizza?')">
+									<i class="fas fa-trash"></i>
+								</button>
+								</form></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-lg-5 table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr><span style="color: firebrick;">I Nostri Fritti</span></tr>
+							<tr>
+								<th>Nome</th>
+								<th class="prezzo">Prezzo</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each=" fritto : ${fritti}">
+								<td th:text="${fritto.nomeFritto}"></td>
+								<td class="prezzo" th:text="${fritto.prezzo}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-lg-5 table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr><span style="color: firebrick;">Le Bevande</span></tr>
+							<tr>
+								<th>Nome</th>
+								<th class="prezzo">Prezzo</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each=" bevanda : ${bevande}">
+								<td th:text="${bevanda.nomeBevanda}"></td>
+								<td class="prezzo" th:text="${bevanda.prezzo}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section>
+		<footer th:insert="fragments :: footer(pizze)">
+			
+		</footer>
+	</section>
+
+</body>
+
+</html>
