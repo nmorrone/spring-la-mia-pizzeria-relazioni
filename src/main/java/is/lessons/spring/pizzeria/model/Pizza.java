@@ -1,9 +1,12 @@
 package is.lessons.spring.pizzeria.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -28,9 +31,20 @@ public class Pizza {
 	private double prezzo;
 	
 	
+	@OneToMany(mappedBy="pizza")
+	private List<Coupon> coupons;
 	
 	
+	
+	
+
 	//getters setters methods
+	public List<Coupon> getCoupons() {
+		return coupons;
+	}
+	public void setCoupons(List<Coupon> coupons) {
+		this.coupons = coupons;
+	}
 	public Integer getId() {
 		return id;
 	}
