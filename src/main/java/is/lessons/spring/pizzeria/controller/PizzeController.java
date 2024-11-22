@@ -153,7 +153,7 @@ public class PizzeController {
 		
 		couponRepo.save(couponForm);
 		
-		return "redirect:/pizze";
+		return "redirect:/pizze" + couponForm.getPizza().getId();
 	}
 	
 	
