@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: pageHead(info-pizza)}">
+</head>
+
+<body>
+<!-- Bootstrap Bundle with Popper -->
+<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+<header th:insert="~{fragments :: header(offerta)}"></header>
+
+<section class="content">
+	<div class="container  pt-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-8 justify-content-center mb-3">
+				<span style="color: firebrick;" th:text="${offerta.pizza.getNomePizza()}"></span>
+			</div>
+			<div class="col-lg-8 justify-content-center">
+				<p>Inseriamo i dettagli della tua Nuova Offerta</p>
+				<hr style="color: firebrick;">
+			</div>
+
+			<div class="col-lg-8">
+				<form id="couponForm" method="post"  th:object="${offerta}" th:action="@{/pizze/{id}/crea-offerta (id=*{pizza.getId()})}">
+					<input type="hidden" id="pizza" th:field="*{pizza}">
+					<div class="form-group row justify-content-between mb-3">
+						<label class="col-lg-auto">Nome Offerta:</label>
+						<div class="col-lg-6">
+								<input type="text" class="form-control" id="nome" th:field="*{nome}" th:errorClass="is-invalid">
+								<div id="emailHelp" class="form-text">Puoi inserire lettere, numeri o caratteri speciali.</div>
+								<div th:if="${#fields.hasErrors('nome')}" class="invalid-feedback">
+								<ul>
+								<li th:each="err : ${#fields.errors('nome')}" th:text="${err}"></li>
+								</ul>
+								</div>
+								
+						</div>
+						
+					</div>
+					<div class="form-group row justify-content-between py-3">
+						<label class="col-lg-auto">Data inizio Offerta:</label>
+						<div class="col-lg-6">
+							<input type="date" class="form-control" id="inizio" th:field="*{inizio}" th:errorClass="is-invalid">
+							<div th:if="${#fields.hasErrors('inizio')}" class="invalid-feedback">
+								<ul>
+									<li th:each="err : ${#fields.hasErrors('inizio')}" th:text="${err}"></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row justify-content-between py-3">
+						<label class="col-lg-auto">Data fine Offerta:</label>
+						<div class="col-lg-6">
+							<input type="date" class="form-control" id="fine" th:field="*{fine}" th:errorClass="is-invalid">
+							<div th:if="${#fields.hasErrors('fine')}" class="invalid-feedback">
+								<ul>
+									<li th:each="err : ${#fields.hasErrors('fine')}" th:text="${err}"></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row py-3">
+						<div class="col-lg-8">
+							<input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+							<label class="form-check-label" for="exampleCheck1">Confermo di voler attivare l'offerta per questa pizza</label>
+						</div>
+					<div class="form-group row justify-content-center py-5">
+						<div class="col-auto">
+						<button type="submit" class="btn btn-outline">Attiva Offerta</button>
+						</div>
+					</div>	
+						
+					</div>
+				</form>				
+			</div>
+		</div>
+		
+	</div>
+</section>
+<section>
+	<footer th:insert="fragments :: footer(pizze)">
+		
+	</footer>
+</section>
+</body>
+</html>

@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import is.lessons.spring.pizzeria.model.Bevande;
+import is.lessons.spring.pizzeria.model.Coupon;
 import is.lessons.spring.pizzeria.model.Fritti;
 import is.lessons.spring.pizzeria.model.Pizza;
 import is.lessons.spring.pizzeria.repository.BevandeRepository;
+import is.lessons.spring.pizzeria.repository.CouponRepository;
 import is.lessons.spring.pizzeria.repository.FrittiRepository;
 import is.lessons.spring.pizzeria.repository.PizzeRepository;
 import jakarta.validation.Valid;
@@ -34,6 +36,9 @@ public class PizzeController {
 	
 	@Autowired
 	private BevandeRepository bevandeRepo;
+	
+	@Autowired
+	private CouponRepository couponRepo;
 	
 	@GetMapping("/pizze")
 	public String indexPizze(@RequestParam(name = "keyword", required= false) String keyword, Model model){
@@ -85,11 +90,9 @@ public class PizzeController {
 
 	@PostMapping("/pizze/crea-pizza")
 	public String storePizza(@Valid @ModelAttribute("pizza") Pizza pizzaForm, BindingResult bindingResult, Model model) {
-	//blank l'aggiungo nel caso in cui mi passa stringhe vuote / stringhe spazio
 	if(bindingResult.hasErrors()) {
 		return "pizze/crea-pizza";
 	}
-
 	pizzeRepo.save(pizzaForm);
 	return"redirect:/pizze";
 }
@@ -122,6 +125,33 @@ public class PizzeController {
 	public String rimuoviPizza(@PathVariable Integer id) {
 		
 		pizzeRepo.deleteById(id);
+		
+		return "redirect:/pizze";
+	}
+	
+	
+	//metodi per creare e salvare offerta su una specifica pizza
+	@GetMapping("/pizze/{id}/crea-offerta")
+	public String creaCoupon(@PathVariable("id") Integer id, Model model) {
+		
+		Pizza pizza = pizzeRepo.findById(id).get();
+		Coupon offerta = new Coupon();
+		offerta.setPizza(pizza);
+		
+		model.addAttribute("offerta", offerta);
+		
+		return "/pizze/crea-offerta";
+	} 
+	
+	@PostMapping("/pizze/{id}/crea-offerta")
+	public String storeCoupon(@PathVariable("id") Integer id, @Valid @ModelAttribute("coupon") Coupon couponForm,BindingResult bindingResults,  Model model) {
+		
+		if(bindingResults.hasErrors()) {
+			
+			return "/pizze/crea-offerta";
+		}
+		
+		couponRepo.save(couponForm);
 		
 		return "redirect:/pizze";
 	}

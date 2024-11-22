@@ -9,30 +9,66 @@
 <header th:insert="~{fragments :: header(pizze)}"></header>
 
 <section class="content pt-5">
-	<div class="container">
-		<div class="row justify-content-center">
+	<div class="container" th:object="${infoPizza}">
+		
+		<div class="row justify-content-center py-3">
 			<div class="col-lg-10 pb-3">
 				<h5>Ecco i Dettagli della Pizza</h5>
-				<hr style="color: firebrick;">
+				
+			</div>
+			<div class="col">
+				<a role="button" class="btn btn-outline" th:href="@{/pizze/{id}/crea-offerta (id=${infoPizza.id})}">Crea Offerta</a>
 			</div>
 		</div>
-		<div class="row justify-content-center align-items-center" >
-
-			<div class="col-lg-5">
+		<hr style="color: firebrick;">
+		<div class="row justify-content-center align-items-center py-3">
+			<div class="col-lg-6">
 				<img th:src="@{${infoPizza.linkFoto}}" alt="" class="img-fluid" style="width:100%;"/>
 			</div>
-			<div class="col-lg-5">
+			<div class="col-lg-6">
 								<h6><strong>Nome:</strong></h6>
-								<p>[[${infoPizza.nomePizza}]]</p>
+								<p>[[*{nomePizza}]]</p>
 								<h6><strong>Descrizione:</strong></h6>
-								<p>[[${infoPizza.descrizione}]]</p>
+								<p>[[*{descrizione}]]</p>
 								<h6><strong>Prezzo:</strong></h6>
-								<p>€ [[${infoPizza.prezzo}]]</p>
+								<p>€ [[*{prezzo}]]</p>
 							<div class="d-grid col-sm-12 col-lg-6">
 								<a th:href="@{'/pizze'}" class="btn btn-outline" role="button">Torna al Menu</a>
 							</div>
-			</div>
+			</div>			
+		</div>
+		<div class="row justify-content-center py-3">
+			<div th:if="*{!coupons.isEmpty()}" class="col">
+				<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Codice Offerta</th>
+						<th>Data Inizio</th>
+						<th>Data Fine</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="coupon : *{coupons}">
+						<td th:text="${coupon.getNome()}"></td>
+						<td th:text="${coupon.getInizio()}"></td>
+						<td th:text="${coupon.getFine()}"></td>
+						<td><a th:href="@{/coupons/{id}/modifica-offerta (id=${coupon.getId()})}" class="btn btn-outline-danger" role="button"><i class="fas fa-pen"></i></a</td>
+						<td><form th:action="@{/coupons/{id}/rimuovi-offerta (id=${coupon.getId()})}" method="post">
+							<button class="btn btn-outline-danger" type="submit" onclick="return confirm('Sei sicuro di voler eliminare la Pizza?')">
+							<i class="fas fa-trash"></i>
+							</button>
+							</form>
+						</td>				
+					</tr>
+				</tbody>	
+				</table>
 							
+			</div> 
+			<div th:if="*{coupons.isEmpty()}" class="col-lg-10 text-center">
+				<p>Non ci sono attualmente offerta per questa Pizza!</p>
+			</div>
 		</div>
 	</div>
 </section>
