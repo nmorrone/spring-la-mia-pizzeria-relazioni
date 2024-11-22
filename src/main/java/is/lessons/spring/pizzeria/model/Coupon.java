@@ -2,6 +2,8 @@ package is.lessons.spring.pizzeria.model;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,9 +29,11 @@ public class Coupon {
 	private String nome;
 	@NotNull(message = "Inserisci la data di inizio dell'offerta")
 	@FutureOrPresent(message = "La data di inizio non può essere precedente ad oggi")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate inizio;
 	@NotNull(message = "L'offerta deve avere una data di scadenza")
 	@FutureOrPresent(message = "La data di fine non può essere precedente ad oggi")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fine;
 	
 	@ManyToOne
