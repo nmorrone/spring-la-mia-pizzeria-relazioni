@@ -6,6 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
@@ -30,15 +33,28 @@ public class Pizza {
 	@Min(value = 5, message = "il prezzo non può essere inferiore a euro 5")
 	private double prezzo;
 	
-	
 	@OneToMany(mappedBy="pizza")
 	private List<Coupon> coupons;
 	
+	//collego con tab ponte da me denominata gli ingredienti
+	@ManyToMany()
+	@JoinTable(
+			name = "pizza_ingredienti",
+			joinColumns = @JoinColumn(name="pizza_id"),
+			inverseJoinColumns = @JoinColumn (name = "ingrediente_id")
+			)
+	private List<Ingrediente> ingredienti;
 	
 	
 	
-
 	//getters setters methods
+	public List<Ingrediente> getIngredienti() {
+		return ingredienti;
+	}
+	public void setIngredienti(List<Ingrediente> ingredienti) {
+		this.ingredienti = ingredienti;
+	}
+
 	public List<Coupon> getCoupons() {
 		return coupons;
 	}
@@ -75,7 +91,6 @@ public class Pizza {
 	public void setPrezzo(double prezzo) {
 		this.prezzo = prezzo;
 	}
-
 
 	@Override
 	public String toString() {

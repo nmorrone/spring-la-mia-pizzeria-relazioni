@@ -38,7 +38,13 @@
 			</div>			
 		</div>
 		<div class="row justify-content-center py-3">
-			<div th:if="*{!coupons.isEmpty()}" class="col-lg-8">
+			<div class="col-lg-6" th:if="*{!ingredienti.isEmpty()}">
+				<ul class="list-group" th:each="ingrediente : *{ingredienti}">
+					<li class="list-group-item" th:text="${ingrediente.getNome()}"></li>
+				</ul>
+				
+			</div>
+			<div th:if="*{!coupons.isEmpty()}" class="col-lg-6">
 				<table class="table table-hover">
 				<thead>
 					<tr>
@@ -54,9 +60,9 @@
 						<td th:text="${coupon.getNome()}"></td>
 						<td th:text="${coupon.getInizio()}"></td>
 						<td th:text="${coupon.getFine()}"></td>
-						<td><a th:href="@{/coupons/{id}/modifica-offerta (id=${coupon.getId()})}" class="btn btn-outline-danger" role="button"><i class="fas fa-pen"></i></a</td>
+						<td><a th:href="@{/coupons/{id}/modifica-offerta (id=${coupon.getId()})}" class="btn btn-outline" role="button"><i class="fas fa-pen"></i></a</td>
 						<td><form th:action="@{/coupons/{id}/rimuovi-offerta (id=${coupon.getId()})}" method="post">
-							<button class="btn btn-outline-danger" type="submit" onclick="return confirm('Sei sicuro di voler eliminare la Pizza?')">
+							<button class="btn btn-outline" type="submit" onclick="return confirm('Sei sicuro di voler eliminare la Pizza?')">
 							<i class="fas fa-trash"></i>
 							</button>
 							</form>

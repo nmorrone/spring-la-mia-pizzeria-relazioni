@@ -79,3 +79,7 @@ body {
 	background-color: black;
 	color: white;
 }
+
+.small-buttons{
+	width: 5px;
+}
