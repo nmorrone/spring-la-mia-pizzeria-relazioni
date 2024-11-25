@@ -58,15 +58,15 @@
 								</ul>
 							</div>
 						</div>
-						<div class="mb-3 form-check" th:each="ingrediente : ${listaIngredienti}">
-							<input type="chechbox" class="form-check-input" th:id="|ingrediente_${ingrediente.id}|"
+						<label class="small-texts">Seleziona gli ingredienti presenti</label>
+							<div class="mb-3 form-check" th:each="ingrediente : ${listaIngredienti}">
+							<input type="checkbox" class="form-check-input" th:id="|ingrediente_${ingrediente.id}|"
 								th:value="${ingrediente.id}" th:field="*{ingredienti}">
-							<label for="|ingrediente_${ingrediente.id}|" class="form-check-label"
-								th:text="${ingrediente.nome}"></label>
-						</div>
+							<label for="|ingrediente_${ingrediente.id}|" class="form-check-label" th:text="${ingrediente.nome}"></label>
+							</div>
 						<div class="mb-3 form-check">
 							<input type="checkbox" class="form-check-input" id="exampleCheck1" required>
-							<label class="form-check-label" for="exampleCheck1">Confermo di voler modificare i dati di
+							<label class="form-check-label small-texts" for="exampleCheck1">Confermo di voler modificare i dati di
 								questa Pizza.</label>
 						</div>
 						<button type="submit" class="btn btn-primary form-text">Aggiorna Dati</button>

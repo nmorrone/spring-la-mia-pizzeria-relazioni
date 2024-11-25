@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import is.lessons.spring.pizzeria.model.Ingrediente;
+import is.lessons.spring.pizzeria.model.Pizza;
 import is.lessons.spring.pizzeria.repository.IngredientiRepository;
 import jakarta.validation.Valid;
 
@@ -33,16 +34,6 @@ public class IngredientiController {
 		return "/pizze/lista-ingredienti";
 	}
 
-	/*
-	 * //metodi form nuovo ingrediente e store in DB
-	 * 
-	 * @GetMapping("/inserisci-ingrediente") public String formIngrediente(Model
-	 * model) {
-	 * 
-	 * model.addAttribute("ingrediente", new Ingrediente()); return
-	 * "pizze/crea-ingrediente"; }
-	 */
-
 	@PostMapping("/inserisci-ingrediente")
 	public String storeIngrediente(@Valid @ModelAttribute Ingrediente ingredienteForm, BindingResult bindingResults,
 			Model model) {
@@ -55,10 +46,16 @@ public class IngredientiController {
 		return "redirect:/ingredienti";
 	}
 
+	//metodo di rimozione ingrediente con rimozione da lista ingredienti pizze associate
 	@PostMapping("/rimuovi-ingrediente/{id}")
 	public String rimuoviIngrediente(@PathVariable("id") Integer id) {
+		Ingrediente ingrediente = ingredientiRepo.findById(id).get();
+		
+		for(Pizza pizza : ingrediente.getPizze()) {	
+			pizza.getIngredienti().remove(ingrediente);
+		}
+		
 		ingredientiRepo.deleteById(id);
-
 		return "redirect:/ingredienti";
 	}
 
