@@ -21,40 +21,15 @@ public class CouponController {
 	@Autowired
 	private CouponRepository couponRepo;
 
-	
-	//metodo per rimuovere coupon
+	//metodo per rimuovere coupon con redirect sulla pizza associara
 	@PostMapping("/{id}/rimuovi")
 	public String rimuoviCoupon(@PathVariable("id") Integer id) {
 		
+		Integer redirect = couponRepo.findById(id).get().getPizza().getId();
 		couponRepo.deleteById(id);
 		
-		return"redirect:/pizze";
+		return"redirect:/pizze/" + redirect;
 	}
 	
-	
-	//metodi per visualizzare e modificare coupon
-	@GetMapping("/{id}/modifica-offerta")
-	public String modificaCoupon(@PathVariable("id") Integer id, Model model) {
-		
-		Coupon offerta = couponRepo.findById(id).get();
-		
-		model.addAttribute("offerta", offerta);
-		
-		return "/pizze/modifica-offerta";
-	}
-	
-	@PostMapping("/{id}/modifica-offerta")
-	public String storeCoupon(@PathVariable("id") Integer id, @Valid @ModelAttribute("coupon") Coupon couponForm,BindingResult bindingResults,  Model model) {
-		
-		if(bindingResults.hasErrors()){
-			
-			return "/pizze/modifica-offerta";
-		}
-		
-		couponRepo.save(couponForm);
-		
-		return "redirect:/pizze" + couponForm.getPizza().getId();
-	}
-
 	
 }

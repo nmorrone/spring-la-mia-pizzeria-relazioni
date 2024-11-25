@@ -145,17 +145,39 @@ public class PizzeController {
 	
 	@PostMapping("/pizze/{id}/crea-offerta")
 	public String storeCoupon(@PathVariable("id") Integer id, @Valid @ModelAttribute("coupon") Coupon couponForm,BindingResult bindingResults,  Model model) {
-		
 		if(bindingResults.hasErrors()) {
-			
 			return "/pizze/crea-offerta";
 		}
-		
 		couponRepo.save(couponForm);
-		
-		return "redirect:/pizze" + couponForm.getPizza().getId();
+		return "redirect:/pizze/" + couponForm.getPizza().getId();
 	}
 	
+	
+	
+	//metodi per visualizzare e modificare coupon
+	@GetMapping("/pizze/modifica-offerta/{id}")
+	public String modificaCoupon(@PathVariable("id") Integer id, Model model) {
+		
+		Optional <Coupon> offerta = couponRepo.findById(id);
+		if(offerta.isPresent()) {
+		model.addAttribute("offerta", offerta.get());
+		}
+		else {
+			model.addAttribute("verifica", 0);
+		}
+		return "/pizze/modifica-offerta";
+	}
+		
+	@PostMapping("/pizze/modifica-offerta/{id}")
+	public String modificaCoupon(@PathVariable("id") Integer id, @Valid @ModelAttribute("coupon") Coupon couponForm,BindingResult bindingResults,  Model model) {
+			
+		if(bindingResults.hasErrors()){
+			return "/pizze/modifica-offerta";
+		}
+			
+		couponRepo.save(couponForm);
+		return "redirect:/pizze/" + couponForm.getPizza().getId();
+	}
 	
 
 }
