@@ -32,18 +32,25 @@
 								<p>[[*{descrizione}]]</p>
 								<h6><strong>Prezzo:</strong></h6>
 								<p>€ [[*{prezzo}]]</p>
+
+							<div th:if="*{!getIngredienti().isEmpty()}">
+								<p>Ingredienti</p>
+								<hr style="color: firebrick;">
+								<ul class="list-group" th:each="ingrediente : *{getIngredienti()}">
+									<li class="list-group-item" th:text="${ingrediente.getNome()}"></li>
+								</ul>
+							</div>
+							<div th:if="*{getIngredienti.isEmpty()}">
+								<p>Non ci sono ingredienti salvati per questa pizza!</p>
+							</div>
+							<div class="small-texts py-3"><a th:href="@{/ingredienti}">*Scopri i nostri Ingredienti</a></div>
 							<div class="d-grid col-sm-12 col-lg-6">
 								<a th:href="@{'/pizze'}" class="btn btn-outline" role="button">Torna al Menu</a>
 							</div>
 			</div>			
 		</div>
 		<div class="row justify-content-center py-3">
-			<div class="col-lg-6" th:if="*{!ingredienti.isEmpty()}">
-				<ul class="list-group" th:each="ingrediente : *{ingredienti}">
-					<li class="list-group-item" th:text="${ingrediente.getNome()}"></li>
-				</ul>
-				
-			</div>
+
 			<div th:if="*{!coupons.isEmpty()}" class="col-lg-6">
 				<table class="table table-hover">
 				<thead>

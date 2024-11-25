@@ -18,41 +18,48 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/ingredienti")
 public class IngredientiController {
-	
+
 	@Autowired
 	IngredientiRepository ingredientiRepo;
-	
-	//metodo display elenco ingrediente
-	@GetMapping("/")
+
+	// metodo display elenco ingrediente
+	@GetMapping
 	public String index(Model model) {
-	List <Ingrediente> ingredienti = ingredientiRepo.findAll();	
-	model.addAttribute("ingredienti", ingredienti);
-	return "/pizze/lista-ingredienti";
+
+		List<Ingrediente> ingredienti = ingredientiRepo.findAll();
+
+		model.addAttribute("ingredienti", ingredienti);
+		model.addAttribute("nuovoIngrediente", new Ingrediente());
+		return "/pizze/lista-ingredienti";
 	}
-	//metodi form nuovo ingrediente e store in DB
-	@GetMapping("/inserisci-ingrediente")
-	public String formIngrediente(Model model) {
-		
-		model.addAttribute("ingrediente", new Ingrediente());
-		return "pizze/crea-ingrediente";
-	}
-	
+
+	/*
+	 * //metodi form nuovo ingrediente e store in DB
+	 * 
+	 * @GetMapping("/inserisci-ingrediente") public String formIngrediente(Model
+	 * model) {
+	 * 
+	 * model.addAttribute("ingrediente", new Ingrediente()); return
+	 * "pizze/crea-ingrediente"; }
+	 */
+
 	@PostMapping("/inserisci-ingrediente")
-	public String storeIngrediente (@Valid @ModelAttribute("ingrediente") Ingrediente ingredienteForm, BindingResult bindingResults, Model model){
-		
-		if(bindingResults.hasErrors()) {
-			return"/ingredienti/crea-ingrediente";
+	public String storeIngrediente(@Valid @ModelAttribute Ingrediente ingredienteForm, BindingResult bindingResults,
+			Model model) {
+
+		if (bindingResults.hasErrors()) {
+			return "/pizze/lista-ingredienti";
 		}
-		
-		ingredientiRepo.save(ingredienteForm);		
-		return"redirect:/ingredienti";
+
+		ingredientiRepo.save(ingredienteForm);
+		return "redirect:/ingredienti";
 	}
-	
-	@PostMapping("/rimuovi/{id}")
+
+	@PostMapping("/rimuovi-ingrediente/{id}")
 	public String rimuoviIngrediente(@PathVariable("id") Integer id) {
 		ingredientiRepo.deleteById(id);
-		
-		return"redirect:/ingredienti";
+
+		return "redirect:/ingredienti";
 	}
 
 }
