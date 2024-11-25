@@ -25,7 +25,7 @@ public class Coupon {
 	private Integer id;
 	@NotNull (message = "Inserisci 5 caratteri per dare un nome alla tua offerta")
 	@NotBlank (message = "Inserisci 5 caratteri per dare un nome alla tua offerta")
-	@Size(min = 5, max = 5, message="Il nome del Coupon deve essere obbligatiriamente di 5 caratteri")
+	@Size(min = 5, max = 15, message="Il nome del Coupon deve essere obbligatiriamente di 5 caratteri")
 	private String nome;
 	@NotNull(message = "Inserisci la data di inizio dell'offerta")
 	@FutureOrPresent(message = "La data di inizio non può essere precedente ad oggi")

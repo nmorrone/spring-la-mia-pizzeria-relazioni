@@ -31,19 +31,16 @@ public class PizzeController {
 
 	@Autowired
 	private PizzeRepository pizzeRepo;
-
 	@Autowired
 	private FrittiRepository frittiRepo;
-
 	@Autowired
 	private BevandeRepository bevandeRepo;
-
 	@Autowired
 	private CouponRepository couponRepo;
-
 	@Autowired
 	private IngredientiRepository ingredientiRepo;
 
+	//metodo display pizze e menu
 	@GetMapping("/pizze")
 	public String indexPizze(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
 
@@ -70,7 +67,7 @@ public class PizzeController {
 		return "pizze/lista-pizze";
 	}
 
-	// metodo visualizza info pizza singola
+	// metodo display singola pizza
 	@GetMapping("/pizze/{id}")
 	public String infoPizza(@PathVariable Integer id, Model model) {
 		Optional<Pizza> infoPizza = pizzeRepo.findById(id);
@@ -84,7 +81,7 @@ public class PizzeController {
 		return "pizze/info-pizza";
 	}
 
-	// metodi per visualizzare form creazione pizza e inserirla nel database
+	//display form creazione pizza e store in DB
 	@GetMapping("/pizze/crea-pizza")
 	public String creaPizza(Model model) {
 		model.addAttribute("pizza", new Pizza());
@@ -102,8 +99,7 @@ public class PizzeController {
 		return "redirect:/pizze";
 	}
 
-	// metodi per visualizzare info pizza presente e modificarne i dati aggiornando
-	// database
+	//metodi modifica pizza esistente e aggiornamento dati DB
 	@GetMapping("/pizze/modifica-pizza/{id}")
 	public String modificaPizza(@PathVariable("id") Integer id, Model model) {
 		Optional<Pizza> infoPizza = pizzeRepo.findById(id);
@@ -129,7 +125,7 @@ public class PizzeController {
 
 		return "redirect:/pizze";
 	}
-
+	//metodo rimozione pizza su DB
 	@PostMapping("/pizze/rimuovi/{id}")
 	public String rimuoviPizza(@PathVariable Integer id) {
 
@@ -138,7 +134,7 @@ public class PizzeController {
 		return "redirect:/pizze";
 	}
 
-	// metodi per creare e salvare offerta su una specifica pizza
+	//metodi display form coupon e store in DB
 	@GetMapping("/pizze/{id}/crea-offerta")
 	public String creaCoupon(@PathVariable("id") Integer id, Model model) {
 
@@ -161,7 +157,7 @@ public class PizzeController {
 		return "redirect:/pizze/" + couponForm.getPizza().getId();
 	}
 
-	// metodi per visualizzare e modificare coupon
+	//metodi modifica coupon e aggiornamento DB
 	@GetMapping("/pizze/modifica-offerta/{id}")
 	public String modificaCoupon(@PathVariable("id") Integer id, Model model) {
 

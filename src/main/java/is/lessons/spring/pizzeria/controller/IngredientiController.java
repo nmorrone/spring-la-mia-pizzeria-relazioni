@@ -23,7 +23,7 @@ public class IngredientiController {
 	@Autowired
 	IngredientiRepository ingredientiRepo;
 
-	// metodo display elenco ingrediente
+	//metodo display ingredienti elenco completo
 	@GetMapping
 	public String index(Model model) {
 
@@ -34,6 +34,7 @@ public class IngredientiController {
 		return "/pizze/lista-ingredienti";
 	}
 
+	//metodo store nuovo ingrediente in DB
 	@PostMapping("/inserisci-ingrediente")
 	public String storeIngrediente(@Valid @ModelAttribute Ingrediente ingredienteForm, BindingResult bindingResults,
 			Model model) {

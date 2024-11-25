@@ -10,7 +10,7 @@
 
 <section class="content pt-5">
 	<div class="container" th:object="${infoPizza}">
-		
+		<!--Intestazione pagina con pulsante per Coupons-->
 		<div class="row justify-content-center py-3">
 			<div class="col-lg-10 pb-3">
 				<h5>Ecco i Dettagli della Pizza</h5>
@@ -21,6 +21,7 @@
 			</div>
 		</div>
 		<hr style="color: firebrick;">
+		<!--Doppia colonna con Foto e info Pizza-->
 		<div class="row justify-content-center align-items-center py-3">
 			<div class="col-lg-6">
 				<img th:src="@{${infoPizza.linkFoto}}" alt="" class="img-fluid" style="width:100%;"/>
@@ -48,6 +49,7 @@
 							</div>
 			</div>			
 		</div>
+		<!--Tabella lista coupon attivi-->
 		<div class="row justify-content-center py-3">
 
 			<div th:if="*{!coupons.isEmpty()}" class="col-lg-6">

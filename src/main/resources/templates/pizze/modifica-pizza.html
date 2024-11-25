@@ -19,6 +19,7 @@
 					<hr style="color: firebrick;">
 				</div>
 			</div>
+			<!--Form Modifica Pizza Esistente-->
 			<div class="row justify-content-center px-5">
 				<div class="col-lg-6">
 					<form id="pizzaForm" th:object="${pizza}" th:action="@{/pizze/modifica-pizza/{id} (id=${pizza.id})}"
@@ -48,6 +49,18 @@
 							<div id="emailHelp" class="form-text">Inserisci ogni singolo ingrediente specificandolo.
 							</div>
 						</div>
+						<div class="mb-3">
+													<label for="foto" class="form-label">Inserisci URL immagine</label>
+													<input type="text" class="form-control" id="linkFoto" th:field="*{linkFoto}"
+														th:errorClass="is-invalid">
+													<div th:if="${#fields.hasErrors('descrizione')}" class="invalid-feedback">
+														<ul>
+															<li th:each="err : ${#fields.errors('descrizione')}" th:text="${err}"></li>
+														</ul>
+													</div>
+													<div id="emailHelp" class="form-text">Le foto sono sotto /img e con estensione .img (SPECIFICARE)
+													</div>
+												</div>
 						<div class="mb-3">
 							<label for="prezzo" class="form-label">Inserisci il Prezzo</label>
 							<input type="number" class="form-control" id="prezzo" aria-describedby="emailHelp"

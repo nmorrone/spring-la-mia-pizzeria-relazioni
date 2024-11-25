@@ -18,7 +18,7 @@
 				<p>Inseriamo i dettagli della tua Nuova Offerta</p>
 				<hr style="color: firebrick;">
 			</div>
-
+			<!--Form creazione Offerta-->
 			<div class="col-lg-8">
 				<form id="couponForm" method="post"  th:object="${offerta}" th:action="@{/pizze/{id}/crea-offerta (id=*{pizza.getId()})}">
 					<input type="hidden" id="pizza" th:field="*{pizza}">

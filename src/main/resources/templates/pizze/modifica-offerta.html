@@ -15,10 +15,10 @@
 				<span style="color: firebrick;" th:text="${offerta.pizza.getNomePizza()}"></span>
 			</div>
 			<div class="col-lg-8 justify-content-center">
-				<p>Inseriamo i dettagli della tua Nuova Offerta</p>
+				<p>Aggiorna i Dati della tua Offerta</p>
 				<hr style="color: firebrick;">
 			</div>
-
+			<!--Form aggiornamento dati offerta-->	
 			<div class="col-lg-8" th:object="${offerta}">
 				<form id="couponForm" method="post"  th:object="${offerta}" th:action="@{/pizze/modifica-offerta/{id} (id=*{getId()})}">
 					<input type="hidden" id="pizza" th:field="*{pizza}">
