@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+	<!--Script and Utilities Fragment-->
 <head th:fragment="pageHead(title)">
 	<!-- Required meta tags -->
 		<meta charset="utf-8">
@@ -20,7 +21,7 @@
 	<header th:fragment="header(pagename)" class="top-header bg-light">
 		<div class="container">
 			<div class="d-flex flex-row justify-content-between align-items-center py-3">
-				<!--Logo or Title-->
+				<!--Logo with Redirect-->
 				<div class="col">
 					<a  th:href="@{'/'}" >
 					<img th:src="@{/img/LogoPizza.png}"alt="" style="width: 100px;"  />
