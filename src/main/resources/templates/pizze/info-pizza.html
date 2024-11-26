@@ -68,10 +68,10 @@
 						<td th:text="${coupon.getNome()}"></td>
 						<td th:text="${coupon.getInizio()}"></td>
 						<td th:text="${coupon.getFine()}"></td>
-						<td><a th:href="@{/pizze/modifica-offerta/{id} (id=${coupon.getId()})}" class="btn btn-outline" role="button"><i class="fas fa-pen"></i></a</td>
+						<td><a th:href="@{/pizze/modifica-offerta/{id} (id=${coupon.getId()})}" class="btn myButton" role="button"><i class="fas fa-pen fa-xs"></i></a</td>
 						<td><form th:action="@{/coupons/{id}/rimuovi (id=${coupon.getId()})}" method="post">
-							<button class="btn btn-outline" type="submit" onclick="return confirm('Sei sicuro di voler eliminare la Pizza?')">
-							<i class="fas fa-trash"></i>
+							<button class="btn myButton" type="submit" onclick="return confirm('Sei sicuro di voler eliminare il Coupon?')">
+							<i class="fas fa-trash fa-xs"></i>
 							</button>
 							</form>
 						</td>				

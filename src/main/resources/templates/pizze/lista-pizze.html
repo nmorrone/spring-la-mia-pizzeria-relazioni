@@ -17,7 +17,7 @@
 					<div>
 						<form class="d-flex" role="search" th:action="@{/pizze}" method="get">
 						        <input class="form-control me-2" name="keyword" th:value="${keyword}" type="search" placeholder="Parola Chiave.." aria-label="Search">
-						        <button class="btn btn-outline-danger" type="submit"><i class="fas fa-search"></i></button>
+						        <button class="btn myButton" type="submit"><i class="fas fa-search fa-xs"></i></button>
 						      </form>
 					</div>
 				</div>
@@ -36,23 +36,26 @@
 							</tr>
 						</thead>
 						<tbody>
+							<!--Condizione nessuna pizza presente in DB-->
 							<tr th:if="${pizze.empty}">
 								<td colspan="3" class="prezzo"> Nessuna pizza disponibile </td>
 							</tr>
+							<!--Tabella lista piste presenti-->
 							<tr th:each="pizza : ${pizze}">
 								<td><a th:href="@{'/pizze/' + ${pizza.id}}">[[${pizza.nomePizza}]]</a></td>
 								<td th:text="${pizza.descrizione}"></td>
 								<td class="prezzo" th:text="${pizza.prezzo}"></td>
-								<td><a th:href="@{'/pizze/modifica-pizza/' + ${pizza.id}}" class="btn btn-outline-danger" role="button"><i class="fas fa-pen"></i></a</td>
+								<td><a th:href="@{'/pizze/modifica-pizza/' + ${pizza.id}}" class="btn myButton" role="button"><i class="fas fa-pen fa-xs"></i></a</td>
 								<td><form th:action="@{'/pizze/rimuovi/' + ${pizza.id}}" method="post">
-								<button class="btn btn-outline-danger" type="submit" onclick="return confirm('Sei sicuro di voler eliminare la Pizza?')">
-									<i class="fas fa-trash"></i>
+								<button class="btn myButton" type="submit" onclick="return confirm('Sei sicuro di voler eliminare la Pizza?')">
+									<i class="fas fa-trash fa-xs"></i>
 								</button>
 								</form></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
+				<!--Tabella Fritti-->
 				<div class="col-lg-5 table-responsive">
 					<table class="table table-hover">
 						<thead>
@@ -70,6 +73,7 @@
 						</tbody>
 					</table>
 				</div>
+				<!--Tabella Bevande-->
 				<div class="col-lg-5 table-responsive">
 					<table class="table table-hover">
 						<thead>

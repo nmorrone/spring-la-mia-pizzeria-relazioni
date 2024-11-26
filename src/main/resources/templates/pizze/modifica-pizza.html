@@ -14,14 +14,14 @@
 	<section class="content">
 		<div class="container pt-5">
 			<div class="row justify-content-center px-5">
-				<div class="col-lg-6 mb-3">
+				<div class="col-lg-8 mb-3">
 					<p style="font-size: 18px;">Modifica i dati della tua Pizza</p>
 					<hr style="color: firebrick;">
 				</div>
 			</div>
 			<!--Form Modifica Pizza Esistente-->
 			<div class="row justify-content-center px-5">
-				<div class="col-lg-6">
+				<div class="col-lg-8">
 					<form id="pizzaForm" th:object="${pizza}" th:action="@{/pizze/modifica-pizza/{id} (id=${pizza.id})}"
 						method="post">
 						<div class="mb-3">
@@ -50,17 +50,18 @@
 							</div>
 						</div>
 						<div class="mb-3">
-													<label for="foto" class="form-label">Inserisci URL immagine</label>
-													<input type="text" class="form-control" id="linkFoto" th:field="*{linkFoto}"
-														th:errorClass="is-invalid">
-													<div th:if="${#fields.hasErrors('descrizione')}" class="invalid-feedback">
-														<ul>
-															<li th:each="err : ${#fields.errors('descrizione')}" th:text="${err}"></li>
-														</ul>
-													</div>
-													<div id="emailHelp" class="form-text">Le foto sono sotto /img e con estensione .img (SPECIFICARE)
-													</div>
-												</div>
+							<label for="foto" class="form-label">Inserisci URL immagine</label>
+							<input type="text" class="form-control" id="linkFoto" th:field="*{linkFoto}"
+								th:errorClass="is-invalid">
+							<div th:if="${#fields.hasErrors('descrizione')}" class="invalid-feedback">
+								<ul>
+									<li th:each="err : ${#fields.errors('descrizione')}" th:text="${err}"></li>
+								</ul>
+							</div>
+							<div id="emailHelp" class="form-text">Le foto sono sotto /img e con estensione .img
+								(SPECIFICARE)
+							</div>
+						</div>
 						<div class="mb-3">
 							<label for="prezzo" class="form-label">Inserisci il Prezzo</label>
 							<input type="number" class="form-control" id="prezzo" aria-describedby="emailHelp"
@@ -71,18 +72,21 @@
 								</ul>
 							</div>
 						</div>
-						<label class="small-texts">Seleziona gli ingredienti presenti</label>
-							<div class="mb-3 form-check" th:each="ingrediente : ${listaIngredienti}">
+						<div><label class="small-texts"><span style="color: firebrick">Seleziona gli ingredienti presenti</span></label></div>
+						<!--Lista selezione Ingredienti Inline-->
+						<div class="mb-3 form-check form-check-inline" th:each="ingrediente : ${listaIngredienti}">
 							<input type="checkbox" class="form-check-input" th:id="|ingrediente_${ingrediente.id}|"
 								th:value="${ingrediente.id}" th:field="*{ingredienti}">
-							<label for="|ingrediente_${ingrediente.id}|" class="form-check-label" th:text="${ingrediente.nome}"></label>
-							</div>
+							<label for="|ingrediente_${ingrediente.id}|" class="form-check-label"
+								th:text="${ingrediente.nome}"></label>
+						</div>
 						<div class="mb-3 form-check">
 							<input type="checkbox" class="form-check-input" id="exampleCheck1" required>
-							<label class="form-check-label small-texts" for="exampleCheck1">Confermo di voler modificare i dati di
+							<label class="form-check-label small-texts" for="exampleCheck1">Confermo di voler modificare
+								i dati di
 								questa Pizza.</label>
 						</div>
-						<button type="submit" class="btn btn-primary form-text">Aggiorna Dati</button>
+						<button type="submit" class="btn btn-outline">Aggiorna Dati</button>
 					</form>
 				</div>
 			</div>

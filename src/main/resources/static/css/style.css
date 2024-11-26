@@ -7,12 +7,12 @@ Author URI: https://instagram.com/nmorronee
 Version: 0.1
 */
 p {
-	color: dimgray;
 	font-size: 16px;
 }
 
-table{
+td,tr,th{
 	font-size: 14px;
+	color: dimgray;
 }
 
 a {
@@ -42,23 +42,36 @@ a:hover {
 
 
 body {
-	
 	font-family: monospace;
+	color: dimgray;
 }
 
 .btn-outline {
-	border: 1px solid black;
-	color: black;
+	border: 1px solid firebrick;
+	color:firebrick;
 }
 
 .btn-outline:hover{
 	border: 1px solid firebrick;
-	color: firebrick;
+	background-color: firebrick;
+	color: #fff;
 }
 
 .dropdown:hover .dropdown-menu {
     display: block;
 
+}
+
+.myButton{
+	border: solid 1px lightgray;
+	border-radius: 100%;
+	color: firebrick;
+}
+
+.myButton:hover{
+	border: solid 1px firebrick;
+	background-color: firebrick;
+	color: #fff;
 }
 
 .dropdown-item:hover {
@@ -70,20 +83,7 @@ body {
 	border: none;
 }
 
-.form-button {
-	background-color: firebrick; 
-	border: none;
-}
-
-.form-button:hover {
-	background-color: black;
-	color: white;
-}
-
-.small-buttons{
-	width: 5px;
-}
-
 .small-texts{
-	font-size: 10px;
+	font-size: 12px;
+	font-style: italic;
 }

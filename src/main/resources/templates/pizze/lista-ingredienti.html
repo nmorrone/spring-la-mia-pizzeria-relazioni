@@ -30,9 +30,9 @@
 								<td>
 									<form th:action="@{'/ingredienti/rimuovi-ingrediente/' + ${ingrediente.id}}"
 										method="post">
-										<button class="btn btn-outline" type="submit"
-											onclick="return confirm('Sei sicuro di voler eliminare la Pizza?')">
-											<i class="fas fa-trash"></i>
+										<button class="btn myButton" type="submit"
+											onclick="return confirm('Sei sicuro di voler elimare ingrediente selezionato?')">
+											<i class="fas fa-trash fa-xs"></i>
 										</button>
 									</form>
 								</td>
@@ -40,19 +40,21 @@
 						</tbody>
 					</table>
 				</div>
-
-				<div class="col-lg-3">
-					<p>Vuoi inserire un nuovo Ingrediente?</p>
-					<hr style="color: firebrick;">
-					<form id="ingredienteForm" th:action="@{/ingredienti/inserisci-ingrediente}"
-						th:object="${nuovoIngrediente}" method="post">
-						<div class="mb-3">
-							<input type="text" th:field="*{nome}" id="ingredienteForm" class="form-control">
-						</div>
-						<div class="mb-3">
-							<button type="submit" class="btn btn-outline">Inserisci</button>
-						</div>
-					</form>
+				<!--Colonna inserimento ingrediente STICKY-->
+				<div class="col-lg-3 py-3">
+					<div class="sticky-top">
+						<p>Vuoi inserire un nuovo Ingrediente?</p>
+						<hr style="color: firebrick;">
+						<form id="ingredienteForm" th:action="@{/ingredienti/inserisci-ingrediente}"
+							th:object="${nuovoIngrediente}" method="post">
+							<div class="mb-3">
+								<input type="text" th:field="*{nome}" id="ingredienteForm" class="form-control">
+							</div>
+							<div class="mb-3">
+								<button type="submit" class="btn btn-outline">Inserisci</button>
+							</div>
+						</form>
+					</div>
 				</div>
 
 			</div>

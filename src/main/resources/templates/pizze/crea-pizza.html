@@ -14,14 +14,14 @@
 	<section class="content">
 		<div class="container pt-5">
 			<div class="row justify-content-center px-5">
-				<div class="col-lg-6 mb-3">
+				<div class="col-lg-8 mb-3">
 					<p style="font-size: 18px;">Iniziamo a creare la Pizza</p>
 					<hr style="color: firebrick;">
 				</div>
 			</div>
 			<!--Form creazione Pizza con Ingredienti-->
 			<div class="row justify-content-center px-5">
-				<div class="col-lg-6">
+				<div class="col-lg-8">
 					<form id="pizzaForm" th:object="${pizza}" th:action="@{/pizze/crea-pizza}" method="post">
 						<div class="mb-3">
 							<label for="nomePizza" class="form-label">Dai un nome alla tua Pizza</label>
@@ -58,9 +58,9 @@
 								</ul>
 							</div>
 						</div>
-						<label class="small-texts">Seleziona gli ingredienti presenti</label>
-						<div class="mb-3 form-check" th:each="ingrediente : ${listaIngredienti}">
-							
+						<div><label class="small-texts"><span style="color: firebrick">Seleziona gli ingredienti presenti</span></label></div>
+						<!--Lista selezione ingredienti Inline-->
+						<div class="mb-3 form-check form-check-inline" th:each="ingrediente : ${listaIngredienti}">
 							<input type="checkbox" class="form-check-input" th:id="|ingrediente_${ingrediente.id}|"
 								th:value="${ingrediente.id}" th:field="*{ingredienti}">
 							<label for="|ingrediente_${ingrediente.id}|" class="form-check-label"
@@ -71,7 +71,7 @@
 							<label class="form-check-label small-texts" for="exampleCheck1">Confermo di voler inserire la pizza nel
 								menu.</label>
 						</div>
-						<button type="submit" class="btn btn-primary form-text form-button">Inserisci Pizza</button>
+						<button type="submit" class="btn btn-outline">Inserisci Pizza</button>
 					</form>
 				</div>
 			</div>
